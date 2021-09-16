@@ -1,0 +1,3 @@
+rootProject.name = 'LegendsOfTheThreeKingdoms'
+
+include 'dedicated-server'
