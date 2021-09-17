@@ -1,30 +1,48 @@
 package org.ltk.server.game
 
+object GameModeHolder {
+    val modes: Map<String, GameMode> = listOf(
+        TwoPlayersRoleMode,
+        ThreePlayersRoleMode,
+        FourPlayersRoleMode,
+        FivePlayersRoleMode,
+        SixPlayersOneTraitorRoleMode,
+        SixPlayersTwoTraitorsRoleMode,
+        SevenPlayersRoleMode,
+        EightPlayersOneTraitorRoleMode,
+        EightPlayersTwoTraitorsRoleMode,
+        NinePlayersRoleMode,
+        TenPlayersRoleMode
+    ).associateBy { it.name }
+}
+
 sealed interface GameMode {
+    val name: String
     val playerCount: Int
 }
 
 sealed interface RoleMode : GameMode {
+    override val playerCount get() = rolesDefinition.count()
     val rolesDefinition: List<Role>
 }
 
-class TwoPlayersRoleMode : RoleMode {
-    override val playerCount = 2
+object TwoPlayersRoleMode : RoleMode {
+    override val name = "双人身份模式"
     override val rolesDefinition = listOf(Role.MONARCH, Role.REBEL)
 }
 
-class ThreePlayersRoleMode : RoleMode {
-    override val playerCount = 3
+object ThreePlayersRoleMode : RoleMode {
+    override val name = "三人身份模式"
     override val rolesDefinition = listOf(Role.MONARCH, Role.REBEL, Role.TRAITOR)
 }
 
-class FourPlayersRoleMode : RoleMode {
-    override val playerCount = 4
+object FourPlayersRoleMode : RoleMode {
+    override val name = "四人身份模式"
     override val rolesDefinition = listOf(Role.MONARCH, Role.MINISTER, Role.REBEL, Role.TRAITOR)
 }
 
-class FivePlayersRoleMode : RoleMode {
-    override val playerCount = 5
+object FivePlayersRoleMode : RoleMode {
+    override val name = "五人身份模式"
     override val rolesDefinition = listOf(
         Role.MONARCH,
         Role.MINISTER,
@@ -33,11 +51,10 @@ class FivePlayersRoleMode : RoleMode {
     )
 }
 
-sealed class SixPlayersRoleMode : RoleMode {
-    override val playerCount = 6
-}
+sealed class SixPlayersRoleMode : RoleMode
 
-class SixPlayersOneTraitorRoleMode : SixPlayersRoleMode() {
+object SixPlayersOneTraitorRoleMode : SixPlayersRoleMode() {
+    override val name = "六人身份模式-单内奸"
     override val rolesDefinition = listOf(
         Role.MONARCH,
         Role.MINISTER,
@@ -46,7 +63,8 @@ class SixPlayersOneTraitorRoleMode : SixPlayersRoleMode() {
     )
 }
 
-class SixPlayersTwoTraitorsRoleMode : SixPlayersRoleMode() {
+object SixPlayersTwoTraitorsRoleMode : SixPlayersRoleMode() {
+    override val name = "六人身份模式-双内奸"
     override val rolesDefinition = listOf(
         Role.MONARCH,
         Role.MINISTER,
@@ -55,8 +73,8 @@ class SixPlayersTwoTraitorsRoleMode : SixPlayersRoleMode() {
     )
 }
 
-class SevenPlayersRoleMode : RoleMode {
-    override val playerCount = 7
+object SevenPlayersRoleMode : RoleMode {
+    override val name = "七人身份模式"
     override val rolesDefinition = listOf(
         Role.MONARCH,
         Role.MINISTER, Role.MINISTER,
@@ -65,11 +83,10 @@ class SevenPlayersRoleMode : RoleMode {
     )
 }
 
-sealed class EightPlayersRoleMode : RoleMode {
-    override val playerCount = 8
-}
+sealed class EightPlayersRoleMode : RoleMode
 
-class EightPlayersOneTraitorRoleMode : EightPlayersRoleMode() {
+object EightPlayersOneTraitorRoleMode : EightPlayersRoleMode() {
+    override val name = "八人身份模式-单内奸"
     override val rolesDefinition = listOf(
         Role.MONARCH,
         Role.MINISTER, Role.MINISTER,
@@ -78,7 +95,8 @@ class EightPlayersOneTraitorRoleMode : EightPlayersRoleMode() {
     )
 }
 
-class EightPlayersTwoTraitorsRoleMode : EightPlayersRoleMode() {
+object EightPlayersTwoTraitorsRoleMode : EightPlayersRoleMode() {
+    override val name = "八人身份模式-双内奸"
     override val rolesDefinition = listOf(
         Role.MONARCH,
         Role.MINISTER, Role.MINISTER,
@@ -87,8 +105,8 @@ class EightPlayersTwoTraitorsRoleMode : EightPlayersRoleMode() {
     )
 }
 
-class NinePlayersRoleMode : RoleMode {
-    override val playerCount = 9
+object NinePlayersRoleMode : RoleMode {
+    override val name = "九人身份模式"
     override val rolesDefinition = listOf(
         Role.MONARCH,
         Role.MINISTER, Role.MINISTER, Role.MINISTER,
@@ -97,8 +115,8 @@ class NinePlayersRoleMode : RoleMode {
     )
 }
 
-class TenPlayersRoleMode : RoleMode {
-    override val playerCount = 10
+object TenPlayersRoleMode : RoleMode {
+    override val name = "十人身份模式"
     override val rolesDefinition = listOf(
         Role.MONARCH,
         Role.MINISTER, Role.MINISTER, Role.MINISTER,

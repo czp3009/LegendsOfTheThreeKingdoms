@@ -37,6 +37,8 @@ dependencies {
     implementation group: 'io.ktor', name: 'ktor-server-core', version: '1.6.3'
     // https://mvnrepository.com/artifact/io.ktor/ktor-server-cio
     implementation group: 'io.ktor', name: 'ktor-server-cio', version: '1.6.3'
+    // https://mvnrepository.com/artifact/io.ktor/ktor-serialization
+    implementation group: 'io.ktor', name: 'ktor-serialization', version: '1.6.3'
     // https://mvnrepository.com/artifact/io.ktor/ktor-websockets
     implementation group: 'io.ktor', name: 'ktor-websockets', version: '1.6.3'
 }

@@ -1,26 +1,22 @@
 package org.ltk.server.room
 
-import java.util.*
+import org.ltk.server.game.GameMode
 import java.util.concurrent.ConcurrentHashMap
 
 class RoomManager {
-    private val rooms = ConcurrentHashMap<UUID, Room>()
+    private val rooms = ConcurrentHashMap<String, Room>()
 
-    fun createRoom(): Room {
-        var room: Room?
-        do {
-            room = rooms.compute(UUID.randomUUID()) { uuid, existingRoom ->
-                if (existingRoom == null) {
-                    Room(uuid)
-                } else {
-                    null
-                }
+    fun createRoom(name: String, gameMode: GameMode) =
+        //TODO old element flushed
+        rooms.compute(name) { _, existingRoom ->
+            if (existingRoom == null) {
+                Room(name, gameMode)
+            } else {
+                null
             }
-        } while (room == null)
-        return room
-    }
+        }
 
-    fun getRoom(uuid: UUID) = rooms[uuid]
+    fun getRoom(name: String) = rooms[name]
 
     fun getRooms() = rooms.values.toList()
 }
