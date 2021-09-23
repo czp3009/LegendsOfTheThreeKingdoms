@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':server:identity')
+    implementation project(':server:lobby')
+    implementation project(':server:game')
+}

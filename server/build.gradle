@@ -1,0 +1,73 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$Version.kotlin"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$Version.kotlin"
+    }
+}
+
+allprojects {
+    group 'org.ltk.server'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'kotlin'
+    apply plugin: 'kotlinx-serialization'
+
+    //kotlin
+    dependencies {
+        // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
+        implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib'
+        // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-reflect
+        implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect'
+        // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+        implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.5.2'
+        // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-serialization-json
+        implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-serialization-json', version: '1.2.2'
+    }
+
+    //ktor
+    dependencies {
+        // https://mvnrepository.com/artifact/io.ktor/ktor-server-core
+        implementation group: 'io.ktor', name: 'ktor-server-core', version: Version.ktor
+        // https://mvnrepository.com/artifact/io.ktor/ktor-server-cio
+        implementation group: 'io.ktor', name: 'ktor-server-cio', version: Version.ktor
+        // https://mvnrepository.com/artifact/io.ktor/ktor-serialization
+        implementation group: 'io.ktor', name: 'ktor-serialization', version: Version.ktor
+        // https://mvnrepository.com/artifact/io.ktor/ktor-websockets
+        implementation group: 'io.ktor', name: 'ktor-websockets', version: Version.ktor
+    }
+
+    //koin
+    dependencies {
+        // https://mvnrepository.com/artifact/io.insert-koin/koin-core
+        implementation group: 'io.insert-koin', name: 'koin-core', version: Version.koin
+        // https://mvnrepository.com/artifact/io.insert-koin/koin-ktor
+        implementation group: 'io.insert-koin', name: 'koin-ktor', version: Version.koin
+        // https://mvnrepository.com/artifact/io.insert-koin/koin-logger-slf4j
+        implementation group: 'io.insert-koin', name: 'koin-logger-slf4j', version: Version.koin
+    }
+
+    //log
+    dependencies {
+        // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+        implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.6'
+        // https://mvnrepository.com/artifact/io.github.microutils/kotlin-logging
+        implementation group: 'io.github.microutils', name: 'kotlin-logging', version: '2.0.11'
+    }
+
+    //kotlin config
+    compileKotlin {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+    }
+}

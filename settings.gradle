@@ -1,3 +1,7 @@
 rootProject.name = 'LegendsOfTheThreeKingdoms'
 
-include 'dedicated-server'
+include ':server'
+include ':server:identity'
+include ':server:lobby'
+include ':server:game'
+include ':server:all-in-one'
