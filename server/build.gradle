@@ -17,6 +17,7 @@ allprojects {
     }
 }
 
+//config kotlin for all sub projects
 subprojects {
     apply plugin: 'kotlin'
     apply plugin: 'kotlinx-serialization'
@@ -33,26 +34,10 @@ subprojects {
         implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-serialization-json', version: '1.3.0'
     }
 
-    //ktor
-    dependencies {
-        // https://mvnrepository.com/artifact/io.ktor/ktor-server-core
-        implementation group: 'io.ktor', name: 'ktor-server-core', version: Version.ktor
-        // https://mvnrepository.com/artifact/io.ktor/ktor-server-cio
-        implementation group: 'io.ktor', name: 'ktor-server-cio', version: Version.ktor
-        // https://mvnrepository.com/artifact/io.ktor/ktor-serialization
-        implementation group: 'io.ktor', name: 'ktor-serialization', version: Version.ktor
-        // https://mvnrepository.com/artifact/io.ktor/ktor-websockets
-        implementation group: 'io.ktor', name: 'ktor-websockets', version: Version.ktor
-    }
-
     //koin
     dependencies {
         // https://mvnrepository.com/artifact/io.insert-koin/koin-core
         implementation group: 'io.insert-koin', name: 'koin-core', version: Version.koin
-        // https://mvnrepository.com/artifact/io.insert-koin/koin-ktor
-        implementation group: 'io.insert-koin', name: 'koin-ktor', version: Version.koin
-        // https://mvnrepository.com/artifact/io.insert-koin/koin-logger-slf4j
-        implementation group: 'io.insert-koin', name: 'koin-logger-slf4j', version: Version.koin
     }
 
     //log
@@ -64,10 +49,40 @@ subprojects {
     }
 
     //kotlin config
+    def kotlinCompilerArgs = ['-Xopt-in=kotlin.RequiresOptIn']
     compileKotlin {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+        kotlinOptions {
+            jvmTarget = Version.jvm
+            freeCompilerArgs += kotlinCompilerArgs
+        }
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+        kotlinOptions {
+            jvmTarget = Version.jvm
+            freeCompilerArgs += kotlinCompilerArgs
+        }
+    }
+}
+
+//config ktor for all service
+['identity-service', 'lobby-service', 'game-service'].each {
+    project(it) {
+        //ktor
+        dependencies {
+            // https://mvnrepository.com/artifact/io.ktor/ktor-server-core
+            implementation group: 'io.ktor', name: 'ktor-server-core', version: Version.ktor
+            // https://mvnrepository.com/artifact/io.ktor/ktor-server-cio
+            implementation group: 'io.ktor', name: 'ktor-server-cio', version: Version.ktor
+            // https://mvnrepository.com/artifact/io.ktor/ktor-serialization
+            implementation group: 'io.ktor', name: 'ktor-serialization', version: Version.ktor
+            // https://mvnrepository.com/artifact/io.ktor/ktor-websockets
+            implementation group: 'io.ktor', name: 'ktor-websockets', version: Version.ktor
+        }
+
+        //koin
+        dependencies {
+            // https://mvnrepository.com/artifact/io.insert-koin/koin-ktor
+            implementation group: 'io.insert-koin', name: 'koin-ktor', version: Version.koin
+        }
     }
 }

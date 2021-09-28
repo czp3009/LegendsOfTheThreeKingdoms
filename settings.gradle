@@ -1,7 +1,8 @@
 rootProject.name = 'LegendsOfTheThreeKingdoms'
 
 include ':server'
-include ':server:identity'
-include ':server:lobby'
-include ':server:game'
+include ':server:config'
+include ':server:identity-service'
+include ':server:lobby-service'
+include ':server:game-service'
 include ':server:all-in-one'

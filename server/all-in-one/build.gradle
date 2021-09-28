@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(':server:identity')
-    implementation project(':server:lobby')
-    implementation project(':server:game')
+    implementation project(':server:identity-service')
+    implementation project(':server:lobby-service')
+    implementation project(':server:game-service')
 }
